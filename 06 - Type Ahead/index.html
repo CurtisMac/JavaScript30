@@ -30,14 +30,44 @@
         });
       }
 
+      function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+
       function displayMatches() {
         const matches = filterData(this.value);
-        console.log(matches);
+        let newHtml;
+        console.log(this.value);
+        if (this.value == "") {
+          newHtml = `<li>Filter for a city</li><li>or a state</li>`;
+        } else {
+          newHtml = matches
+            .map(cityObj => {
+              const regex = new RegExp(this.value, "gi");
+              const cityName = cityObj.city.replace(
+                regex,
+                `<span class="hl">${this.value}</span>`
+              );
+              const stateName = cityObj.state.replace(
+                regex,
+                `<span class="hl">${this.value}</span>`
+              );
+              return `<li><span class="name">${cityName}, ${stateName}</span><span class="population">${numberWithCommas(
+                cityObj.population
+              )}</span></li>`;
+            })
+            .join("");
+        }
+
+        // console.log(newHtml);
+        document.querySelector(".suggestions").innerHTML = newHtml;
       }
 
       document
         .querySelector(".search")
         .addEventListener("keyup", displayMatches);
+
+      // document.querySelector('.suggestions')
     </script>
   </body>
 </html>
