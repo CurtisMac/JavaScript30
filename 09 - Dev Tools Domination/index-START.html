@@ -1,46 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Console Tricks!</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Console Tricks!</title>
+  </head>
+  <body>
+    <p onClick="makeGreen()" class="fake">×BREAK×DOWN×</p>
 
-  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+    <script>
+      const dogs = [
+        { name: "Snickers", age: 2 },
+        { name: "Hugo", age: 8 },
+        { name: "Rover", age: 5 }
+      ];
 
-  <script>
-    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+      function makeGreen() {
+        const p = document.querySelector("p");
+        p.style.color = "#BADA55";
+        p.style.fontSize = "50px";
+      }
 
-    function makeGreen() {
-      const p = document.querySelector('p');
-      p.style.color = '#BADA55';
-      p.style.fontSize = '50px';
-    }
+      // Regular
+      console.log("hello");
 
-    // Regular
+      // Interpolated
+      console.log("Hello I'm an %s string", "interpolated");
 
-    // Interpolated
+      // Styled
+      console.log("%c I've been styled!", "color: green;");
 
-    // Styled
+      // warning!
+      console.warn("may-day may-day!");
 
-    // warning!
+      // Error :|
+      console.error("fatal error");
 
-    // Error :|
+      // Info
+      console.info("well that is interesting");
 
-    // Info
+      // Testing
+      const p = document.querySelector("p");
 
-    // Testing
+      console.assert(p.classList.contains("ouch"), "That is wrong!");
+      console.assert(p.classList.contains("fake"), "That is right!");
 
-    // clearing
+      // clearing
+      // console.clear();
 
-    // Viewing DOM Elements
+      // Viewing DOM Elements
+      console.log(p);
+      console.dir(p);
 
-    // Grouping together
+      // Grouping together
+      dogs.forEach(dog => {
+        console.groupCollapsed(`Dog: ${dog.name}`);
+        console.log(`This is ${dog.name}`);
+        console.log(`I am ${dog.age}`);
+        console.log(`I am ${dog.age * 7} in human years`);
+        console.groupEnd(`Dog: ${dog.name}`);
+      });
 
-    // counting
+      // counting
+      console.count("I fired");
+      console.count("I fired");
+      console.count("I fired");
+      console.count("I fired");
+      console.count("I fired");
+      console.count("I fired");
 
-    // timing
-
-  </script>
-</body>
+      // timing
+      console.time("Slow Responder");
+      setTimeout(function() {
+        console.log("Hello");
+        console.timeEnd("Slow Responder");
+      }, 3000);
+    </script>
+  </body>
 </html>
