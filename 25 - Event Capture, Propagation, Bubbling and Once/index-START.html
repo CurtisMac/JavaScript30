@@ -1,45 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Understanding JavaScript's Capture</title>
-</head>
-<body class="bod">
-
-  <div class="one">
-    <div class="two">
-      <div class="three">
-      </div>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Understanding JavaScript's Capture</title>
+  </head>
+  <body class="bod">
+    <div class="one">
+      <div class="two"><div class="three"></div></div>
     </div>
-  </div>
 
-<style>
-  html {
-    box-sizing: border-box;
-  }
-  *, *:before, *:after { box-sizing: inherit; }
+    <style>
+      html {
+        box-sizing: border-box;
+      }
+      *,
+      *:before,
+      *:after {
+        box-sizing: inherit;
+      }
 
-  div {
-    width:100%;
-    padding:100px;
-  }
+      div {
+        width: 100%;
+        padding: 100px;
+      }
 
-  .one {
-    background: thistle;
-  }
+      .one {
+        background: thistle;
+      }
 
-  .two {
-    background:mistyrose;
-  }
+      .two {
+        background: mistyrose;
+      }
 
-  .three {
-    background:coral;
-  }
-</style>
+      .three {
+        background: coral;
+      }
+    </style>
 
-<button></button>
-<script>
+    <button class="button">Only Click Once!</button>
+    <script>
+      const divs = document.querySelectorAll("div");
+      const but = document.querySelector("button");
 
-</script>
-</body>
+      function click(e) {
+        e.stopPropagation();
+        console.log(this.classList.value);
+      }
+
+      divs.forEach(div =>
+        div.addEventListener("click", click, {
+          capture: false
+        })
+      );
+
+      but.addEventListener("click", click, {
+        once: true
+      });
+    </script>
+  </body>
 </html>
